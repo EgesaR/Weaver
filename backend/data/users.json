@@ -1,0 +1,11 @@
+[
+  {
+    "_id": 1,
+    "fullName": "John Doe",
+    "email": "john@gmail.com",
+    "password": "$2b$12$ruId9XL5pVZBEW.ifQXsQOZU.Sh1uiPudPwhFOGsmZ1uz0y.9UfN6",
+    "profilePic": null,
+    "createdAt": "2025-09-06T20:12:44.215Z",
+    "updatedAt": "2025-09-06T20:12:44.215Z"
+  }
+]

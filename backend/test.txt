@@ -1,0 +1,427 @@
+import express from "express"
+import {
+  login,
+  logout,
+  signup,
+  updateProfile,
+  checkAuth
+} from "../controllers/auth.controller.js"
+import {
+  protectRoute
+} from "../middleware/auth.middleware.js"
+import {
+  upload
+} from "../lib/multer.js"
+
+const router = express.Router()
+
+router.post("/signup", signup)
+
+router.post("/login", login)
+
+router.post("/logout", logout)
+
+router.put("/update-profile", protectRoute, upload.single("profilePic"), updateProfile)
+
+router.get("/check", protectRoute, checkAuth)
+
+export default router, 
+import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
+import {
+  generateToken
+} from "../lib/utils.js";
+
+export const signup = async (req, res) => {
+  console.log("Body :", req.body);
+  const {
+    fullName,
+    email,
+    password
+  } = req.body;
+
+  try {
+    // Validate password length
+    if (!password || password.length < 8) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters"
+      });
+    }
+    console.log(await User.findByEmail(email))
+    // Check if user already exists
+    const existingUser = await User.findByEmail(email);
+    console.log({
+      existingUser
+    });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "Email already exists"
+      });
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create user (await is important!)
+    const newUser = await User.create({
+      fullName,
+      email,
+      password: hashedPassword,
+      profilePic: null, // optional default
+      //roles: ["user"], // optional default
+    });
+
+    if (newUser) {
+      // Generate JWT/session cookie
+      generateToken(newUser._id, res);
+
+      return res.status(201).json({
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        profilePic: newUser.profilePic ?? null,
+        //roles: newUser.roles ?? ["user"],
+      });
+    } else {
+      return res.status(400).json({
+        message: "Invalid user data"
+      });
+    }
+  } catch (error) {
+    console.error("Error in signup controller", error.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+export const login = async (req, res) => {
+  const {
+    email,
+    password
+  } = req.body;
+  try {
+    // Find user
+    const user = await User.findByEmail(email);
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid credentials"
+      });
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid email or password"
+      });
+    }
+
+    // Generate token
+    generateToken(user._id, res);
+
+    return res.json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic ?? null,
+      //roles: user.roles ?? ["user"],
+    });
+  } catch (error) {
+    console.error("Error in login controller", error.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+export const logout = (req, res) => {
+  // Clear cookie if you’re storing token in cookies
+  res.clearCookie("jwt");
+  return res.json({
+    message: "Logged out successfully"
+  });
+};
+
+// Update only profile picture
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id; // From auth middleware
+    console.log(req.body)
+    if (!req.file) {
+      return res.status(400).json({
+        message: "No profile picture uploaded"
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({
+      message: "User not found"
+    });
+
+    // Remove old profile pic if exists
+    if (user.profilePic) {
+      const oldPath = path.join("uploads", user.profilePic);
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+    }
+
+    // Update with new profile pic
+    user.profilePic = req.file.filename;
+    await user.save();
+
+    return res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic,
+      message: "Profile picture updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating profile picture: ", error.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+export const checkAuth = (req, res) => {
+  try {
+    res.status(200).json(req.user)
+  } catch(error) {
+    console.error("Error in checkAuth controller: ", error.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+},
+import multer from "multer"
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "public/uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalName)
+})
+
+export const upload = multer( {
+  storage
+}), 
+,
+import {
+  useAuthStore
+} from "../store/useAuthStore"
+import {
+  Camera,
+  User,
+  Mail
+} from "lucide-react"
+import {
+  useState
+} from "react"
+
+export const ProfilePage = () => {
+  const {
+    authUser,
+    isUpdatingProfile,
+    updateProfile
+  } = useAuthStore()
+  const [
+    selectedImg,
+    setSelectedImg] = useState(null)
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return;
+    const reader = new FileReader()
+
+    reader.readAsDataURL(file)
+
+    reader.onload = async () => {
+      const base64Image = reader.result
+      setSelectedImg(base64Image)
+      await updateProfile( {
+        profilePic: base64Image
+      })
+    }
+  }
+
+  return (
+    <div className="h-screen pt-20">
+      <div className="max-w-2xl mx-auto p-4 py-8">
+        <div className="bg-neutral-300 rounded-xl p-6 space-y-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-semibold">Profile</h1>
+            <p className="mt-2">
+              Your profile information
+            </p>
+          </div>
+
+          {/*Avatar upload section */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative">
+              <img src={selectedImg || authUser.profilePic || "/avatar.png"} alt="profilePic" />
+            <label htmlFor="avatar-upload" className={`absolute bottom-0 right-0 bg-neutral-400 hover:scale-105 p-2 rounded-full cursor-pointer transition-all duration-200 ${isUpdatingProfile ? "animate-pulse pointer-events-none": ""} `}>
+              <Camera className="size-5 text-neutral-200" />
+              <input
+              type="file"
+              id="avatar-upload"
+              className="hidden"
+              accept="image/*"
+              onChange={handleImageUpload}
+              disabled={isUpdatingProfile}
+              />
+          </label>
+        </div>
+        <p className="text-sm text-zinc-700">
+          {isUpdatingProfile ? "Uploading...": "Click the carmera icon to update your photo"}
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        <div className="space-y-1.5">
+          <div className="text-sm text-zinc-700 flex items-center gap-2">
+            <User className="size-4" />
+            Full Name
+          </div>
+          <p className="px-4 py-2.5 bg-zinc-200 rounded-lg border">
+            {authUser?.fullName}
+          </p>
+        </div>
+        <div className="space-y-1.5">
+          <div className="text-sm text-zinc-700 flex items-center gap-2">
+            <Mail className="size-4" />
+            Email
+          </div>
+          <p className="px-4 py-2.5 bg-zinc-200 rounded-lg border">
+            {authUser?.email}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-6 bg-neutral-300 rounded-xl p-6">
+        <h2 className="text-lg font-medium mb-4">Account Information</h2>
+        <div className="space-y-3 text-sm">
+          <div className="flex items-center justify-between py-2 border-b border-zinc-700">
+            <span>Member Since</span>
+            <span>{authUser.createdAt?.split("T")[0]}</span>
+          </div>
+          <div className="flex items-center justify-between py-2">
+            <span>Account Status</span>
+            <span className="text-green-500">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+)
+}
+
+export default ProfilePage,
+import {
+  create
+} from "zustand"
+import {
+  axiosInstance
+} from "../lib/axios.js"
+import toast from "react-hot-toast"
+
+export const useAuthStore = create(set => ({
+  authUser: null,
+  isSigningUp: false,
+  isLoggingIn: false,
+  isUpdatingProfile: false,
+
+  isCheckingAuth: true,
+  checkAuth: async () => {
+    try {
+      const res = await axiosInstance.get("/auth/check")
+
+      set({
+        authUser: res.data
+      })
+    } catch (error) {
+      console.log("Error in checkAuth: ", error)
+      set({
+        authUser: null
+      })
+    } finally {
+      set({
+        isCheckingAuth: false
+      })
+    }
+  },
+
+  signup: async (data) => {
+    set({
+      isSigningUp: true
+    })
+    try {
+      const res = await axiosInstance.post("/auth/signup", data)
+      set({
+        authUser: res.data
+      })
+      toast.success("Account created successfully")
+
+    } catch(error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    } finally {
+      set({
+        isSigningUp: false
+      })
+    }
+  },
+  login: async (data) => {
+    set({
+      isLoggingIn: true
+    })
+    try {
+      const res = await axiosInstance.post("/auth/login", data)
+      set({
+        authUser: res.data
+      })
+      toast.success("Logged in successfully")
+
+    } catch(error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    } finally {
+      set({
+        isLoggingIn: false
+      })
+    }
+  },
+  logout: async () => {
+    try {
+      await axiosInstance.post("/auth/logout")
+      set({
+        authUser: null
+      })
+      toast.success("Logged out successfully")
+    } catch(error) {
+      toast.error(error.response.data.message)}
+  },
+  updateProfile: async (data) => {
+    set({
+      isUpdatingProfile: true
+    })
+    try {
+      const res = await axiosInstance.post("/auth/update-profile", data, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }})
+      set({
+        authUser: res.data
+      })
+      toast.success("Profile updated successfully")
+
+    } catch(error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    } finally {
+      set({
+        isUpdatingProfile: false
+      })
+    }
+  },
+}))
