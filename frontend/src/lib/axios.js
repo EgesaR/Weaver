@@ -8,9 +8,9 @@ if (typeof window !== "undefined" && window.location.hostname === "localhost") {
   // Cloud Workstations: Use port prefix + $WEB_HOST (e.g., https://5001-5173-firebase-weavergit-...cloudworkstations.dev)
   const portPrefix = "5001"; // Your backend port
   const webHost = process.env.WEB_HOST || '';
-  // Strip leading port from $WEB_HOST if present (e.g., remove '-5173' to avoid duplication)
-  const cleanHost = webHost.replace(/^-?\d+/, '');
-  API_URL = `https://${portPrefix}${cleanHost}/api`;
+  // Strip leading port from $WEB_HOST if present (e.g., remove '-5173-' or '5173-' to avoid duplication)
+  const cleanHost = webHost.replace(/^-?\d+-/, '');
+  API_URL = `https://${portPrefix}-${cleanHost}/api`;
 } else {
   // Fallback for LAN/production (keep HTTP for now, but consider HTTPS in prod)
   API_URL = `http://${window.location.hostname}:5001/api`;

@@ -1,0 +1,16 @@
+{
+  "name": "weaver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pmpm@9.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-all": "cd frontend && pnpm install && cd ../backend pnpm install && cd ..",
+    "dev": "pnpm --parallel --filter backend dev --filter frontend dev",
+    "build": "pnpm --filter backend build && pnpm --filter frontend build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -7,5 +7,14 @@
     "profilePic": null,
     "createdAt": "2025-09-06T20:12:44.215Z",
     "updatedAt": "2025-09-06T20:12:44.215Z"
+  },
+  {
+    "_id": 2,
+    "fullName": "Karen",
+    "email": "karen@gmail.com",
+    "password": "$2b$12$kqS2.cajyQLNxus8vKofjeNrMX1e1hTMsGOha5Aoj40LAsDf7kA4q",
+    "profilePic": null,
+    "createdAt": "2025-10-09T12:00:39.089Z",
+    "updatedAt": "2025-10-09T12:00:39.089Z"
   }
 ]

@@ -7,6 +7,7 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.pnpm
+    pkgs.openssl_3_2.bin
     # pkgs.go
     # pkgs.python311
     # pkgs.python311Packages.pip

@@ -1,0 +1,7 @@
+frontend: 
+5173-firebase-weavergit-1757596573889.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev
+
+backend:
+5001-firebase-weavergit-1757596573889.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev
+
+openssl rand -base64 32
