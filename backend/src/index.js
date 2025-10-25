@@ -64,7 +64,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 // Message routes
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.use("/uploads", express.static("public/uploads"));
 

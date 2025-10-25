@@ -13,8 +13,26 @@
     "fullName": "Karen",
     "email": "karen@gmail.com",
     "password": "$2b$12$kqS2.cajyQLNxus8vKofjeNrMX1e1hTMsGOha5Aoj40LAsDf7kA4q",
-    "profilePic": null,
+    "profilePic": "http://0.0.0.0:5001/uploads/1761038478327-download.jfif",
     "createdAt": "2025-10-09T12:00:39.089Z",
     "updatedAt": "2025-10-09T12:00:39.089Z"
+  },
+  {
+    "_id": 3,
+    "fullName": "henry",
+    "email": "henry@gmail.com",
+    "password": "$2b$12$lBeM12bGYgE6sPFpZAhLIuqbcVL0AiHQaIAYn31cw72nnqTh7KCn6",
+    "profilePic": "http://0.0.0.0:5001/uploads/1761038558780-photo-1760632373541-8db1f9eb8d19.avif",
+    "createdAt": "2025-10-18T14:59:00.769Z",
+    "updatedAt": "2025-10-18T14:59:00.769Z"
+  },
+  {
+    "_id": 4,
+    "fullName": "Egesa Raymond",
+    "email": "egesaraymond644@gmail.com",
+    "password": "$2b$12$4OuVXqnxV/5JdXl4ZlRNXOiljF56E496fH3SWFutw5wP/dBtDuZDu",
+    "profilePic": null,
+    "createdAt": "2025-10-21T09:23:16.171Z",
+    "updatedAt": "2025-10-21T09:23:16.171Z"
   }
 ]
