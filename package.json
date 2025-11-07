@@ -1,16 +1,21 @@
 {
   "name": "weaver",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
     "build": "pnpm --filter frontend install && pnpm --filter frontend run build",
     "start": "node backend/server.js",
-    "dev": "concurrently \"pnpm --filter frontend dev\" \"nodemon backend/server.js\""
+    "dev": "concurrently \"pnpm --filter frontend dev\" \"pnpm --filter backend dev\""
   },
   "devDependencies": {
     "concurrently": "^8.2.1",
     "nodemon": "^3.1.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "@rollup/rollup-android-arm64": "4.45.1",
+      "lightningcss": "1.25.1"
+    }
   }
 }
