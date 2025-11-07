@@ -5,10 +5,12 @@
   "main": "index.js",
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "build" : "pnpm install --prefix backend && pnpm install --prefix frontend && pnpm run build --prefix frontend",
-    "start": "pnpm run start --prefix backend"
+    "build": "pnpm --filter frontend install && pnpm --filter frontend run build",
+    "start": "node backend/server.js",
+    "dev": "concurrently \"pnpm --filter frontend dev\" \"nodemon backend/server.js\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.1.10"
+  }
 }
