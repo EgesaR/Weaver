@@ -1,0 +1,162 @@
+[
+  {
+    "_id": 1,
+    "senderId": 2,
+    "receiverId": 3,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-02T19:10:22.026Z",
+    "updatedAt": "2025-11-02T19:10:22.026Z",
+    "isRead": false
+  },
+  {
+    "_id": 2,
+    "senderId": 2,
+    "receiverId": 3,
+    "text": "What's up",
+    "image": null,
+    "createdAt": "2025-11-02T19:10:27.368Z",
+    "updatedAt": "2025-11-02T19:10:27.371Z",
+    "isRead": false
+  },
+  {
+    "_id": 3,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yello",
+    "image": null,
+    "createdAt": "2025-11-02T19:11:20.334Z",
+    "updatedAt": "2025-11-02T19:11:20.334Z",
+    "isRead": false
+  },
+  {
+    "_id": 4,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yello",
+    "image": null,
+    "createdAt": "2025-11-02T19:11:55.280Z",
+    "updatedAt": "2025-11-02T19:11:55.280Z",
+    "isRead": false
+  },
+  {
+    "_id": 5,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-02T20:07:54.193Z",
+    "updatedAt": "2025-11-02T20:07:54.193Z",
+    "isRead": false
+  },
+  {
+    "_id": 6,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "I you",
+    "image": null,
+    "createdAt": "2025-11-02T20:08:05.144Z",
+    "updatedAt": "2025-11-02T20:08:05.146Z",
+    "isRead": false
+  },
+  {
+    "_id": 7,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Go",
+    "image": null,
+    "createdAt": "2025-11-02T20:08:08.683Z",
+    "updatedAt": "2025-11-02T20:08:08.685Z",
+    "isRead": false
+  },
+  {
+    "_id": 8,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yoo",
+    "image": null,
+    "createdAt": "2025-11-02T20:20:16.133Z",
+    "updatedAt": "2025-11-02T20:20:16.134Z",
+    "isRead": false
+  },
+  {
+    "_id": 9,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "",
+    "image": "http://0.0.0.0:5001/uploads/1762115186616-jpgbCOgbKn4jq7exrQ4QHu7i4JplEhjmbHJJnMvluuw=.thumb.webp",
+    "createdAt": "2025-11-02T20:26:26.688Z",
+    "updatedAt": "2025-11-02T20:26:26.690Z",
+    "isRead": false
+  },
+  {
+    "_id": 10,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Go",
+    "image": null,
+    "createdAt": "2025-11-02T20:44:38.414Z",
+    "updatedAt": "2025-11-02T20:44:38.415Z",
+    "isRead": false
+  },
+  {
+    "_id": 11,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-02T20:50:58.517Z",
+    "updatedAt": "2025-11-02T20:50:58.517Z",
+    "isRead": false
+  },
+  {
+    "_id": 12,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yoo",
+    "image": null,
+    "createdAt": "2025-11-02T22:20:45.417Z",
+    "updatedAt": "2025-11-02T22:20:45.418Z",
+    "isRead": false
+  },
+  {
+    "_id": 13,
+    "senderId": 3,
+    "receiverId": 5,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-03T09:34:53.401Z",
+    "updatedAt": "2025-11-03T09:34:53.401Z",
+    "isRead": false
+  },
+  {
+    "_id": 14,
+    "senderId": 3,
+    "receiverId": 6,
+    "text": "Yello",
+    "image": null,
+    "createdAt": "2025-11-03T09:41:18.569Z",
+    "updatedAt": "2025-11-03T09:41:18.569Z",
+    "isRead": false
+  },
+  {
+    "_id": 15,
+    "senderId": 3,
+    "receiverId": 8,
+    "text": "Yo",
+    "image": null,
+    "createdAt": "2025-11-03T09:53:03.648Z",
+    "updatedAt": "2025-11-03T09:53:03.648Z",
+    "isRead": false
+  },
+  {
+    "_id": 16,
+    "senderId": 3,
+    "receiverId": 7,
+    "text": "There",
+    "image": null,
+    "createdAt": "2025-11-03T09:53:30.311Z",
+    "updatedAt": "2025-11-03T09:53:30.312Z",
+    "isRead": false
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "_id": 1,
+    "fullName": "John Doe",
+    "email": "john@gmail.com",
+    "password": "$2b$12$ruId9XL5pVZBEW.ifQXsQOZU.Sh1uiPudPwhFOGsmZ1uz0y.9UfN6",
+    "profilePic": null,
+    "createdAt": "2025-09-06T20:12:44.215Z",
+    "updatedAt": "2025-09-06T20:12:44.215Z"
+  },
+  {
+    "_id": 2,
+    "fullName": "Karen",
+    "email": "karen@gmail.com",
+    "password": "$2b$12$kqS2.cajyQLNxus8vKofjeNrMX1e1hTMsGOha5Aoj40LAsDf7kA4q",
+    "profilePic": "http://0.0.0.0:5001/uploads/1761038478327-download.jfif",
+    "createdAt": "2025-10-09T12:00:39.089Z",
+    "updatedAt": "2025-10-09T12:00:39.089Z"
+  },
+  {
+    "_id": 3,
+    "fullName": "henry",
+    "email": "henry@gmail.com",
+    "password": "$2b$12$lBeM12bGYgE6sPFpZAhLIuqbcVL0AiHQaIAYn31cw72nnqTh7KCn6",
+    "profilePic": "http://0.0.0.0:5001/uploads/1761038558780-photo-1760632373541-8db1f9eb8d19.avif",
+    "createdAt": "2025-10-18T14:59:00.769Z",
+    "updatedAt": "2025-10-18T14:59:00.769Z"
+  },
+  {
+    "_id": 4,
+    "fullName": "Egesa Raymond",
+    "email": "egesaraymond644@gmail.com",
+    "password": "$2b$12$4OuVXqnxV/5JdXl4ZlRNXOiljF56E496fH3SWFutw5wP/dBtDuZDu",
+    "profilePic": null,
+    "createdAt": "2025-10-21T09:23:16.171Z",
+    "updatedAt": "2025-10-21T09:23:16.171Z"
+  },
+  {
+    "email": "emma.thompson@example.com",
+    "fullName": "Emma Thompson",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/emma_thompson.jpg",
+    "createdAt": "2025-11-03T09:26:35.882Z",
+    "updatedAt": "2025-11-03T09:26:35.884Z",
+    "_id": 5
+  },
+  {
+    "email": "olivia.miller@example.com",
+    "fullName": "Olivia Miller",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/olivia_miller.jpg",
+    "createdAt": "2025-11-03T09:26:35.888Z",
+    "updatedAt": "2025-11-03T09:26:35.888Z",
+    "_id": 6
+  },
+  {
+    "email": "sophia.davis@example.com",
+    "fullName": "Sophia Davis",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/sophia_davis.jpg",
+    "createdAt": "2025-11-03T09:26:35.889Z",
+    "updatedAt": "2025-11-03T09:26:35.889Z",
+    "_id": 7
+  },
+  {
+    "email": "william.clark@example.com",
+    "fullName": "William Clark",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/william_clark.jpg",
+    "createdAt": "2025-11-03T09:26:35.889Z",
+    "updatedAt": "2025-11-03T09:26:35.889Z",
+    "_id": 8
+  },
+  {
+    "email": "benjamin.taylon@example.com",
+    "fullName": "Benjamin Taylon",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/benjamin_taylon.jpg",
+    "createdAt": "2025-11-03T09:26:35.889Z",
+    "updatedAt": "2025-11-03T09:26:35.889Z",
+    "_id": 9
+  },
+  {
+    "email": "lucas.moore@example.com",
+    "fullName": "Lucas Moore",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/lucas_moore.jpg",
+    "createdAt": "2025-11-03T09:26:35.890Z",
+    "updatedAt": "2025-11-03T09:26:35.890Z",
+    "_id": 10
+  },
+  {
+    "email": "henry.jackson@example.com",
+    "fullName": "Henry Jackson",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/henry_jackson.jpg",
+    "createdAt": "2025-11-03T09:26:35.890Z",
+    "updatedAt": "2025-11-03T09:26:35.890Z",
+    "_id": 11
+  }
+]

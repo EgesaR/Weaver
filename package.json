@@ -1,0 +1,14 @@
+{
+  "name": "weaver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "build" : "pnpm install --prefix backend && pnpm install --prefix frontend && pnpm run build --prefix frontend",
+    "start": "pnpm run start --prefix backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
