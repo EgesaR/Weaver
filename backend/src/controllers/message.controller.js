@@ -1,99 +1,55 @@
-import User from "../models/user.model.js";
-import Message from "../models/message.model.js";
+import fs from "fs";
 import {
-  getLocalIP
-} from "../lib/utils.js";
+  Message
+} from "../models/message.model.js";
 import {
-  getReceiverSocketId
-} from "../lib/socket.js"
+  getBaseUrl
+} from "../utils/getBaseUrl.js";
 
-const ip = getLocalIP();
-const PORT = process.env.PORT || 5001;
-const backendUrl = `http://${ip}:${PORT}`;
-
-// ✅ Sidebar Users
-export const getUsersForSidebar = async (req, res) => {
-  try {
-    const loggedInUserId = req.user._id;
-
-    const filteredUsers = await User.find({
-      _id: {
-        $ne: loggedInUserId
-      },
-    })
-    .select("-password")
-    .exec();
-
-    res.status(200).json(filteredUsers);
-  } catch (error) {
-    console.error("Error in getUsersForSidebar:", error.message);
-    res.status(500).json({
-      error: "Internal server error"
-    });
-  }
-};
-
-// ✅ Messages between 2 users
-export const getMessages = async (req, res) => {
-  try {
-    const {
-      id: userToChatId
-    } = req.params;
-    const myId = req.user._id;
-
-    const messages = await Message.find({
-      $or: [{
-        senderId: myId, receiverId: parseInt(userToChatId)
-      },
-        {
-          senderId: parseInt(userToChatId), receiverId: myId
-        },
-      ],
-    })
-    .sort({
-      createdAt: 1
-    })
-    .exec();
-
-    res.status(200).json(messages);
-  } catch (error) {
-    console.error("Error in getMessages:", error.message);
-    res.status(500).json({
-      error: "Internal server error"
-    });
-  }
-};
-
-// ✅ Send Message (text + optional image)
+// 📨 Send message (with optional image)
 export const sendMessage = async (req, res) => {
   try {
     const {
-      text
+      text,
+      receiverId
     } = req.body;
-    const receiverId = parseInt(req.params.id);
     const senderId = req.user._id;
-    const receiverSocketId = getReceiverSocketId(receiverId)
-
-    if (receiverSocketId) io.to(receiverSocketId).emit("newMessage", newMessage);
-
-    let imageUrl = null;
-    if (req.file) imageUrl = `${backendUrl}/uploads/${req.file.filename}`;
-
+    const imageUrl = req.file ? `${getBaseUrl()}/uploads/${req.file.filename}`: null;
 
     const newMessage = await Message.create({
       senderId,
       receiverId,
-      text: text || "",
+      text,
       image: imageUrl,
+      createdAt: new Date(),
     });
 
-    if (receiverSocketId) io.to(receiverSocketId).emit("newMessage", newMessage)
-
     res.status(201).json(newMessage);
-  } catch (error) {
-    console.error("Error in sendMessage:", error.message);
+  } catch (err) {
+    console.error("Error sending message:", err.message);
     res.status(500).json({
-      error: "Internal server error"
+      message: "Server error"
+    });
+  }
+};
+
+// 💬 Get messages between two users
+export const getMessages = async (req, res) => {
+  try {
+    const myId = Number(req.user._id);
+    const userToChatId = Number(req.params.id);
+
+    const messages = await Message.find(
+      (m) =>
+      (m.senderId === myId && m.receiverId === userToChatId) ||
+      (m.senderId === userToChatId && m.receiverId === myId)
+    );
+
+    res.json(messages);
+  } catch (err) {
+    console.error("Error getting messages:", err.message);
+    res.status(500).json({
+      message: "Server error"
     });
   }
 };

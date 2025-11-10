@@ -1,20 +1,13 @@
-import {
-  create
-} from "zustand";
-import {
-  axiosInstance
-} from "../lib/axios.js";
+// Client-side useAuthStore.js (updated for better debugging and transport order)
+import { create } from "zustand";
+import { axiosInstance } from "/src/lib/axios.js";
 import toast from "react-hot-toast";
-import {
-  io
-} from "socket.io-client";
+import { io } from "socket.io-client";
 
 let BASE_URL = "";
-
-// Determine backend URL
+// Determine backend URL dynamically
 if (typeof window !== "undefined") {
   const hostname = window.location.hostname;
-
   if (hostname === "localhost") {
     BASE_URL = "http://localhost:5001";
   } else if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(hostname)) {
@@ -26,155 +19,82 @@ if (typeof window !== "undefined") {
   }
 }
 
+const prependUrl = (url) => url && !url.startsWith("http") ? `${BASE_URL}${url}` : url;
+
 export const useAuthStore = create((set, get) => ({
   authUser: null,
-  isSigningUp: false,
-  isLoggingIn: false,
-  isUpdatingProfile: false,
-  isCheckingAuth: true,
-  onlineUsers: [],
   socket: null,
-
+  onlineUsers: [],
   checkAuth: async () => {
     try {
-      const res = await axiosInstance.get("/auth/check", {
-        withCredentials: true
-      });
-      set({
-        authUser: res.data
-      });
+      const res = await axiosInstance.get("/auth/check", { withCredentials: true });
+      const user = res.data;
+      // Fix profilePic
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
       get().connectSocket();
     } catch (err) {
-      console.error("Error in checkAuth:", err);
-      set({
-        authUser: null
-      });
-    } finally {
-      set({
-        isCheckingAuth: false
-      });
+      set({ authUser: null });
     }
   },
-
   signup: async (data) => {
-    set({
-      isSigningUp: true
-    });
     try {
-      const res = await axiosInstance.post("/auth/signup", data, {
-        withCredentials: true
-      });
-      set({
-        authUser: res.data
-      });
-      toast.success("Account created successfully");
+      const res = await axiosInstance.post("/auth/signup", data, { withCredentials: true });
+      const user = res.data;
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
       get().connectSocket();
+      toast.success("Account created successfully");
     } catch (err) {
-      console.error(err);
       toast.error(err.response?.data?.message || "Signup failed");
-    } finally {
-      set({
-        isSigningUp: false
-      });
     }
   },
   login: async (data) => {
-    set({
-      isLoggingIn: true
-    });
     try {
-      const res = await axiosInstance.post("/auth/login", data, {
-        withCredentials: true
-      });
-      set({
-        authUser: res.data
-      });
-      toast.success("Logged in successfully");
+      const res = await axiosInstance.post("/auth/login", data, { withCredentials: true });
+      const user = res.data;
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
       get().connectSocket();
+      toast.success("Logged in successfully");
     } catch (err) {
-      console.error(err);
       toast.error(err.response?.data?.message || "Login failed");
-    } finally {
-      set({
-        isLoggingIn: false
-      });
     }
   },
-
-  logout: async () => {
-    try {
-      await axiosInstance.post("/auth/logout", {}, {
-        withCredentials: true
-      });
-      get().disconnectSocket();
-      set({
-        authUser: null
-      });
-      toast.success("Logged out successfully");
-    } catch (err) {
-      console.error(err);
-      toast.error(err.response?.data?.message || "Logout failed");
-    }
-  },
-
   updateProfile: async (formData) => {
-    set({
-      isUpdatingProfile: true
-    });
     try {
       const res = await axiosInstance.put("/auth/update-profile", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        },
+        headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
-      set({
-        authUser: res.data
-      });
+      const user = res.data;
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
       toast.success("Profile updated successfully");
     } catch (err) {
-      console.error(err);
       toast.error(err.response?.data?.message || "Update failed");
-    } finally {
-      set({
-        isUpdatingProfile: false
-      });
     }
   },
-
   connectSocket: () => {
-    const {
-      authUser, socket
-    } = get();
+    const { authUser, socket } = get();
     if (!authUser || socket?.connected) return;
-    const newSocket = io(import.meta.env.MODE === "development" ? BASE_URL: "/", {
+    const newSocket = io(BASE_URL, {
       withCredentials: true,
-      transports: ["polling", "websocket"], // ✅ same as backend
-      query: {
-        userId: authUser?._id,
-      },
+      transports: ["websocket", "polling"], // Prefer WebSocket
+      query: { userId: authUser._id },
     });
-
-
     newSocket.on("connect", () => console.log("✅ Socket connected:", newSocket.id));
-    newSocket.on("connect_error", (err) => console.error("❌ Socket connection error:", err));
-    newSocket.on("getOnlineUsers", (userIds) => set({
-      onlineUsers: userIds
-    }));
-
-    set({
-      socket: newSocket
-    });
+    newSocket.on("connect_error", (err) => console.error("❌ Socket connect error:", err.message));
+    newSocket.on("error", (err) => console.error("❌ Socket error:", err));
+    newSocket.on("getOnlineUsers", (userIds) => set({ onlineUsers: userIds }));
+    set({ socket: newSocket });
   },
-
   disconnectSocket: () => {
     const socket = get().socket;
     if (socket) {
       socket.removeAllListeners();
       socket.disconnect();
-      set({
-        socket: null
-      });
+      set({ socket: null });
     }
   },
 }));

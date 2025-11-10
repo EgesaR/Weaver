@@ -1,28 +1,1191 @@
-~/project/Weaver-main $ NODE_ENV=production pnpm --filter backend run start                         
-> backend@1.0.0 start /data/data/com.termux/files/home/project/Weaver-main/backend                  > node src/index.js                               
-/data/data/com.termux/files/home/project/Weaver-main/backend/data/users.json                        /data/data/com.termux/files/home/project/Weaver-main/backend/data/messages.json
-[dotenv@17.2.3] injecting env (2) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
-✅ Backend running locally: http://0.0.0.0:5001
-Error: Not allowed by CORS
-    at origin (file:///data/data/com.termux/files/home/project/Weaver-main/backend/src/configs/configs.js:17:14)
-    at /data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/cors@2.8.5/node_modules/cors/lib/index.js:219:13
-    at optionsCallback (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/cors@2.8.5/node_modules/cors/lib/index.js:199:9)
-    at corsMiddleware (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/cors@2.8.5/node_modules/cors/lib/index.js:204:7)
-    at Layer.handleRequest (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/lib/layer.js:152:17)
-    at trimPrefix (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:342:13)
-    at /data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:297:9
-    at processParams (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:582:12)
-    at next (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:291:5)
-    at router.handle (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:186:3)
-Error: Not allowed by CORS
-    at origin (file:///data/data/com.termux/files/home/project/Weaver-main/backend/src/configs/configs.js:17:14)
-    at /data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/cors@2.8.5/node_modules/cors/lib/index.js:219:13
-    at optionsCallback (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/cors@2.8.5/node_modules/cors/lib/index.js:199:9)
-    at corsMiddleware (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/cors@2.8.5/node_modules/cors/lib/index.js:204:7)
-    at Layer.handleRequest (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/lib/layer.js:152:17)
-    at trimPrefix (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:342:13)
-    at /data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:297:9
-    at processParams (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:582:12)
-    at next (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:291:5)
-    at router.handle (/data/data/com.termux/files/home/project/Weaver-main/node_modules/.pnpm/router@2.2.0/node_modules/router/index.js:186:3) from
-    
+If u analyze the profilePics, images u see that each have different url yet i want them to be dynamic whether using hotstop, wifi, localhost, web or web ide plus the messages are not showing
+
+messages.json 
+[
+  {
+    "_id": 1,
+    "senderId": 2,
+    "receiverId": 3,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-02T19:10:22.026Z",
+    "updatedAt": "2025-11-02T19:10:22.026Z",
+    "isRead": false
+  },
+  {
+    "_id": 2,
+    "senderId": 2,
+    "receiverId": 3,
+    "text": "What's up",
+    "image": null,
+    "createdAt": "2025-11-02T19:10:27.368Z",
+    "updatedAt": "2025-11-02T19:10:27.371Z",
+    "isRead": false
+  },
+  {
+    "_id": 3,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yello",
+    "image": null,
+    "createdAt": "2025-11-02T19:11:20.334Z",
+    "updatedAt": "2025-11-02T19:11:20.334Z",
+    "isRead": false
+  },
+  {
+    "_id": 4,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yello",
+    "image": null,
+    "createdAt": "2025-11-02T19:11:55.280Z",
+    "updatedAt": "2025-11-02T19:11:55.280Z",
+    "isRead": false
+  },
+  {
+    "_id": 5,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-02T20:07:54.193Z",
+    "updatedAt": "2025-11-02T20:07:54.193Z",
+    "isRead": false
+  },
+  {
+    "_id": 6,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "I you",
+    "image": null,
+    "createdAt": "2025-11-02T20:08:05.144Z",
+    "updatedAt": "2025-11-02T20:08:05.146Z",
+    "isRead": false
+  },
+  {
+    "_id": 7,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Go",
+    "image": null,
+    "createdAt": "2025-11-02T20:08:08.683Z",
+    "updatedAt": "2025-11-02T20:08:08.685Z",
+    "isRead": false
+  },
+  {
+    "_id": 8,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yoo",
+    "image": null,
+    "createdAt": "2025-11-02T20:20:16.133Z",
+    "updatedAt": "2025-11-02T20:20:16.134Z",
+    "isRead": false
+  },
+  {
+    "_id": 9,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "",
+    "image": "http://0.0.0.0:5001/uploads/1762115186616-jpgbCOgbKn4jq7exrQ4QHu7i4JplEhjmbHJJnMvluuw=.thumb.webp",
+    "createdAt": "2025-11-02T20:26:26.688Z",
+    "updatedAt": "2025-11-02T20:26:26.690Z",
+    "isRead": false
+  },
+  {
+    "_id": 10,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Go",
+    "image": null,
+    "createdAt": "2025-11-02T20:44:38.414Z",
+    "updatedAt": "2025-11-02T20:44:38.415Z",
+    "isRead": false
+  },
+  {
+    "_id": 11,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-02T20:50:58.517Z",
+    "updatedAt": "2025-11-02T20:50:58.517Z",
+    "isRead": false
+  },
+  {
+    "_id": 12,
+    "senderId": 3,
+    "receiverId": 2,
+    "text": "Yoo",
+    "image": null,
+    "createdAt": "2025-11-02T22:20:45.417Z",
+    "updatedAt": "2025-11-02T22:20:45.418Z",
+    "isRead": false
+  },
+  {
+    "_id": 13,
+    "senderId": 3,
+    "receiverId": 5,
+    "text": "Hello",
+    "image": null,
+    "createdAt": "2025-11-03T09:34:53.401Z",
+    "updatedAt": "2025-11-03T09:34:53.401Z",
+    "isRead": false
+  },
+  {
+    "_id": 14,
+    "senderId": 3,
+    "receiverId": 6,
+    "text": "Yello",
+    "image": null,
+    "createdAt": "2025-11-03T09:41:18.569Z",
+    "updatedAt": "2025-11-03T09:41:18.569Z",
+    "isRead": false
+  },
+  {
+    "_id": 15,
+    "senderId": 3,
+    "receiverId": 8,
+    "text": "Yo",
+    "image": null,
+    "createdAt": "2025-11-03T09:53:03.648Z",
+    "updatedAt": "2025-11-03T09:53:03.648Z",
+    "isRead": false
+  },
+  {
+    "_id": 16,
+    "senderId": 3,
+    "receiverId": 7,
+    "text": "There",
+    "image": null,
+    "createdAt": "2025-11-03T09:53:30.311Z",
+    "updatedAt": "2025-11-03T09:53:30.312Z",
+    "isRead": false
+  }
+]
+
+users.json 
+[
+  {
+    "_id": 1,
+    "fullName": "John Doe",
+    "email": "john@gmail.com",
+    "password": "$2b$12$ruId9XL5pVZBEW.ifQXsQOZU.Sh1uiPudPwhFOGsmZ1uz0y.9UfN6",
+    "profilePic": null,
+    "createdAt": "2025-09-06T20:12:44.215Z",
+    "updatedAt": "2025-09-06T20:12:44.215Z"
+  },
+  {
+    "_id": 2,
+    "fullName": "Karen",
+    "email": "karen@gmail.com",
+    "password": "$2b$12$kqS2.cajyQLNxus8vKofjeNrMX1e1hTMsGOha5Aoj40LAsDf7kA4q",
+    "profilePic": "http://0.0.0.0:5001/uploads/1761038478327-download.jfif",
+    "createdAt": "2025-10-09T12:00:39.089Z",
+    "updatedAt": "2025-10-09T12:00:39.089Z"
+  },
+  {
+    "_id": 3,
+    "fullName": "henry",
+    "email": "henry@gmail.com",
+    "password": "$2b$12$lBeM12bGYgE6sPFpZAhLIuqbcVL0AiHQaIAYn31cw72nnqTh7KCn6",
+    "profilePic": "http://localhost:5001/uploads/1762761452917-avatar-1.png",
+    "createdAt": "2025-10-18T14:59:00.769Z",
+    "updatedAt": "2025-10-18T14:59:00.769Z"
+  },
+  {
+    "_id": 4,
+    "fullName": "Egesa Raymond",
+    "email": "egesaraymond644@gmail.com",
+    "password": "$2b$12$4OuVXqnxV/5JdXl4ZlRNXOiljF56E496fH3SWFutw5wP/dBtDuZDu",
+    "profilePic": null,
+    "createdAt": "2025-10-21T09:23:16.171Z",
+    "updatedAt": "2025-10-21T09:23:16.171Z"
+  },
+  {
+    "email": "emma.thompson@example.com",
+    "fullName": "Emma Thompson",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/emma_thompson.jpg",
+    "createdAt": "2025-11-03T09:26:35.882Z",
+    "updatedAt": "2025-11-03T09:26:35.884Z",
+    "_id": 5
+  },
+  {
+    "email": "olivia.miller@example.com",
+    "fullName": "Olivia Miller",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/olivia_miller.jpg",
+    "createdAt": "2025-11-03T09:26:35.888Z",
+    "updatedAt": "2025-11-03T09:26:35.888Z",
+    "_id": 6
+  },
+  {
+    "email": "sophia.davis@example.com",
+    "fullName": "Sophia Davis",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/sophia_davis.jpg",
+    "createdAt": "2025-11-03T09:26:35.889Z",
+    "updatedAt": "2025-11-03T09:26:35.889Z",
+    "_id": 7
+  },
+  {
+    "email": "william.clark@example.com",
+    "fullName": "William Clark",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/william_clark.jpg",
+    "createdAt": "2025-11-03T09:26:35.889Z",
+    "updatedAt": "2025-11-03T09:26:35.889Z",
+    "_id": 8
+  },
+  {
+    "email": "benjamin.taylon@example.com",
+    "fullName": "Benjamin Taylon",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/benjamin_taylon.jpg",
+    "createdAt": "2025-11-03T09:26:35.889Z",
+    "updatedAt": "2025-11-03T09:26:35.889Z",
+    "_id": 9
+  },
+  {
+    "email": "lucas.moore@example.com",
+    "fullName": "Lucas Moore",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/lucas_moore.jpg",
+    "createdAt": "2025-11-03T09:26:35.890Z",
+    "updatedAt": "2025-11-03T09:26:35.890Z",
+    "_id": 10
+  },
+  {
+    "email": "henry.jackson@example.com",
+    "fullName": "Henry Jackson",
+    "password": "1234567890",
+    "profilePic": "http://localhost:5001/uploads/henry_jackson.jpg",
+    "createdAt": "2025-11-03T09:26:35.890Z",
+    "updatedAt": "2025-11-03T09:26:35.890Z",
+    "_id": 11
+  }
+]
+
+auth.controller.js 
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../models/user.model.js";
+import {
+  config
+} from "../configs/configs.js";
+import fs from "fs";
+import path from "path";
+
+const PORT = config.port;
+const backendUrl = `http://${config.nodeEnv === "development" ? "localhost": config.frontendOrigins[0]}:${PORT}`;
+
+// ------------------- SIGNUP -------------------
+export const signup = async (req, res) => {
+  const {
+    fullName,
+    email,
+    password
+  } = req.body;
+  try {
+    if (!password || password.length < 8) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters"
+      });
+    }
+
+    const existingUser = await User.findByEmail(email);
+    if (existingUser) return res.status(400).json({
+      message: "Email already exists"
+    });
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const newUser = await User.create({
+      fullName,
+      email,
+      password: hashedPassword,
+      profilePic: null,
+    });
+
+    const token = jwt.sign({
+      userId: newUser._id
+    }, config.jwtSecret, {
+      expiresIn: "7d"
+    });
+    res.cookie("jwt", token, {
+      httpOnly: true, sameSite: "lax"
+    });
+
+    return res.status(201).json({
+      ...newUser, profilePic: newUser.profilePic || null
+    });
+  } catch (err) {
+    console.error("Error in signup:", err.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+// ------------------- LOGIN -------------------
+export const login = async (req, res) => {
+  const {
+    email,
+    password
+  } = req.body;
+  try {
+    const user = await User.findByEmail(email);
+    if (!user) return res.status(400).json({
+      message: "Invalid credentials"
+    });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({
+      message: "Invalid credentials"
+    });
+
+    const token = jwt.sign({
+      userId: user._id
+    }, config.jwtSecret, {
+      expiresIn: "7d"
+    });
+    res.cookie("jwt", token, {
+      httpOnly: true, sameSite: "lax"
+    });
+
+    return res.json({
+      ...user, profilePic: user.profilePic || null
+    });
+  } catch (err) {
+    console.error("Error in login:", err.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+// ------------------- LOGOUT -------------------
+export const logout = (req, res) => {
+  res.clearCookie("jwt");
+  return res.json({
+    message: "Logged out successfully"
+  });
+};
+
+// ------------------- UPDATE PROFILE PIC -------------------
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!req.file) return res.status(400).json({
+      message: "No profile picture uploaded"
+    });
+
+    // Fetch user (for old pic deletion)
+    const user = await User.findOne({
+      _id: userId
+    });
+    if (!user) return res.status(404).json({
+      message: "User not found"
+    });
+
+    // Remove old picture
+    if (user.profilePic) {
+      const oldPath = path.join("public/uploads", path.basename(user.profilePic));
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+    }
+
+    const newProfilePic = `${backendUrl}/uploads/${req.file.filename}`;
+
+    // Use flexible patch for partial update
+    const updatedUser = await User.patch(userId, {
+      profilePic: newProfilePic
+    });
+
+    return res.status(200).json({
+      ...updatedUser,
+      message: "Profile picture updated successfully"
+    });
+  } catch (err) {
+    console.error("Error updating profile:", err.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+// ------------------- CHECK AUTH -------------------
+export const checkAuth = async (req, res) => {
+  try {
+    return res.status(200).json(req.user);
+  } catch (err) {
+    console.error("Error in checkAuth:", err.message);
+    return res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+message.controller.js 
+import User from "../models/user.model.js";
+import Message from "../models/message.model.js";
+import {
+  getReceiverSocketId,
+  io
+} from "../lib/socket.js";
+
+// ------------------- GET USERS FOR SIDEBAR -------------------
+export const getUsersForSidebar = async (req, res) => {
+  try {
+    const loggedInUserId = req.user._id;
+
+    // Get the Query object
+    const usersQuery = await User.find(u => u._id !== loggedInUserId);
+
+    // Extract the actual array of users
+    const users = Array.isArray(usersQuery.db.data) ? usersQuery.db.data: usersQuery?.db?.data || [];
+
+    const result = users.map(u => ({
+      _id: u._id,
+      fullName: u.fullName,
+      email: u.email,
+      profilePic: u.profilePic || null,
+    }));
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getUsersForSidebar:", error.message);
+    return res.status(500).json({
+      error: "Internal server error"
+    });
+  }
+};
+
+// ------------------- GET MESSAGES -------------------
+export const getMessages = async (req, res) => {
+  try {
+    const myId = req.user._id;
+    const userToChatId = parseInt(req.params.id);
+
+    const messagesQuery = await Message.find(
+      m =>
+      (m.senderId === myId && m.receiverId === userToChatId) ||
+      (m.senderId === userToChatId && m.receiverId === myId)
+    );
+
+    const messages = Array.isArray(messagesQuery) ? messagesQuery: messagesQuery?.data || [];
+
+    const mappedMessages = messages.map(m => ({
+      _id: m._id,
+      senderId: m.senderId,
+      receiverId: m.receiverId,
+      text: m.text || "",
+      image: m.image || null,
+      createdAt: m.createdAt || new Date().toISOString(),
+    }));
+
+    return res.status(200).json(mappedMessages);
+  } catch (error) {
+    console.error("Error in getMessages:", error.message);
+    return res.status(500).json({
+      error: "Internal server error"
+    });
+  }
+};
+
+// ------------------- SEND MESSAGE -------------------
+export const sendMessage = async (req, res) => {
+  try {
+    const senderId = req.user._id;
+    const receiverId = parseInt(req.params.id);
+    const {
+      text
+    } = req.body;
+
+    const imageUrl = req.file ? `/uploads/${req.file.filename}`: null;
+
+    const newMessage = await Message.create({
+      senderId,
+      receiverId,
+      text: text || "",
+      image: imageUrl,
+      createdAt: new Date().toISOString(),
+    });
+
+    // Emit via socket if receiver is online
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) io.to(receiverSocketId).emit("newMessage", newMessage);
+
+    return res.status(201).json(newMessage);
+  } catch (error) {
+    console.error("Error in sendMessage:", error.message);
+    return res.status(500).json({
+      error: "Internal server error"
+    });
+  }
+};
+
+multer.js 
+import multer from "multer"
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "public/uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
+
+})
+
+export const upload = multer( {
+  storage
+})
+
+useAuthStore.js 
+// Client-side useAuthStore.js (updated for better debugging and transport order)
+import { create } from "zustand";
+import { axiosInstance } from "/src/lib/axios.js";
+import toast from "react-hot-toast";
+import { io } from "socket.io-client";
+
+let BASE_URL = "";
+// Determine backend URL dynamically
+if (typeof window !== "undefined") {
+  const hostname = window.location.hostname;
+  if (hostname === "localhost") {
+    BASE_URL = "http://localhost:5001";
+  } else if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(hostname)) {
+    BASE_URL = `http://${hostname}:5001`;
+  } else if (hostname.includes("cluster-") && hostname.includes("cloudworkstations.dev")) {
+    BASE_URL = `https://${hostname}`;
+  } else {
+    BASE_URL = `http://${hostname}:5001`;
+  }
+}
+
+const prependUrl = (url) => url && !url.startsWith("http") ? `${BASE_URL}${url}` : url;
+
+export const useAuthStore = create((set, get) => ({
+  authUser: null,
+  socket: null,
+  onlineUsers: [],
+  checkAuth: async () => {
+    try {
+      const res = await axiosInstance.get("/auth/check", { withCredentials: true });
+      const user = res.data;
+      // Fix profilePic
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
+      get().connectSocket();
+    } catch (err) {
+      set({ authUser: null });
+    }
+  },
+  signup: async (data) => {
+    try {
+      const res = await axiosInstance.post("/auth/signup", data, { withCredentials: true });
+      const user = res.data;
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
+      get().connectSocket();
+      toast.success("Account created successfully");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Signup failed");
+    }
+  },
+  login: async (data) => {
+    try {
+      const res = await axiosInstance.post("/auth/login", data, { withCredentials: true });
+      const user = res.data;
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
+      get().connectSocket();
+      toast.success("Logged in successfully");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Login failed");
+    }
+  },
+  updateProfile: async (formData) => {
+    try {
+      const res = await axiosInstance.put("/auth/update-profile", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
+      const user = res.data;
+      user.profilePic = prependUrl(user.profilePic);
+      set({ authUser: user });
+      toast.success("Profile updated successfully");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Update failed");
+    }
+  },
+  connectSocket: () => {
+    const { authUser, socket } = get();
+    if (!authUser || socket?.connected) return;
+    const newSocket = io(BASE_URL, {
+      withCredentials: true,
+      transports: ["websocket", "polling"], // Prefer WebSocket
+      query: { userId: authUser._id },
+    });
+    newSocket.on("connect", () => console.log("✅ Socket connected:", newSocket.id));
+    newSocket.on("connect_error", (err) => console.error("❌ Socket connect error:", err.message));
+    newSocket.on("error", (err) => console.error("❌ Socket error:", err));
+    newSocket.on("getOnlineUsers", (userIds) => set({ onlineUsers: userIds }));
+    set({ socket: newSocket });
+  },
+  disconnectSocket: () => {
+    const socket = get().socket;
+    if (socket) {
+      socket.removeAllListeners();
+      socket.disconnect();
+      set({ socket: null });
+    }
+  },
+}));
+
+useChatStore.js 
+import {
+  create
+} from "zustand";
+import toast from "react-hot-toast";
+import {
+  axiosInstance
+} from "../lib/axios.js";
+import {
+  useAuthStore
+} from "./useAuthStore.js";
+
+export const useChatStore = create((set, get) => ({
+  messages: [],
+  users: [],
+  selectedUser: null,
+  isUsersLoading: false,
+  isMessagesLoading: false,
+  typingUsers: {},
+
+  getUsers: async () => {
+    set({
+      isUsersLoading: true
+    });
+    try {
+      const res = await axiosInstance.get("/messages/users");
+      set({
+        users: Array.isArray(res.data) ? res.data: []
+      });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch users");
+      set({
+        users: []
+      });
+    } finally {
+      set({
+        isUsersLoading: false
+      });
+    }
+  },
+
+  getMessages: async (userId) => {
+    set({
+      isMessagesLoading: true
+    });
+    try {
+      const res = await axiosInstance.get(`/messages/${userId}`);
+      set({
+        messages: Array.isArray(res.data) ? res.data: []
+      });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch messages");
+      set({
+        messages: []
+      });
+    } finally {
+      set({
+        isMessagesLoading: false
+      });
+    }
+  },
+
+  sendMessage: async ({
+    text, image
+  }) => {
+    const {
+      selectedUser, messages
+    } = get();
+    try {
+      const formData = new FormData();
+      formData.append("text", text);
+      if (image) formData.append("image", image);
+
+      const res = await axiosInstance.post(
+        `/messages/send/${selectedUser._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          withCredentials: true,
+        }
+      );
+
+      set({
+        messages: [...messages, res.data]
+      });
+
+      // Emit to socket for live updates
+      const socket = useAuthStore.getState().socket;
+      if (socket && socket.connected) {
+        socket.emit("send-message", res.data);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to send message");
+    }
+  },
+
+  subscribeToMessages: () => {
+    const {
+      selectedUser
+    } = get();
+    const socket = useAuthStore.getState().socket;
+    if (!selectedUser || !socket) return;
+
+    socket.on("newMessage", (newMessage) => {
+      const isMessageFromSelectedUser = newMessage.senderId === selectedUser._id;
+      if (isMessageFromSelectedUser) {
+        set({
+          messages: [...get().messages, newMessage]
+        });
+      }
+    });
+  },
+
+  unsubscribeFromMessages: () => {
+    const socket = useAuthStore.getState().socket;
+    if (socket) socket.off("newMessage");
+  },
+
+  setSelectedUser: (user) => set({
+    selectedUser: user
+  }),
+
+  setTyping: (isTyping) => {
+    const {
+      selectedUser
+    } = get();
+    const socket = useAuthStore.getState().socket;
+    if (!selectedUser || !socket) return;
+
+    socket.emit("typing", {
+      receiverId: selectedUser._id, isTyping
+    });
+  },
+
+  addMessage: (message) => {
+    const {
+      messages
+    } = get();
+    set({
+      messages: [...messages, message]
+    });
+  },
+
+  setTypingUser: (userId, isTyping) => {
+    const {
+      typingUsers
+    } = get();
+    set({
+      typingUsers: {
+        ...typingUsers, [userId]: isTyping
+      }
+    });
+  },
+}));
+
+MessageInput.jsx 
+import {
+  useRef,
+  useState,
+  useEffect
+} from "react";
+import {
+  useChatStore
+} from "../store/useChatStore";
+import {
+  X,
+  Image,
+  Send
+} from "lucide-react";
+import toast from "react-hot-toast";
+
+const MessageInput = () => {
+  const [text,
+    setText] = useState("");
+  const [imagePreview,
+    setImagePreview] = useState(null);
+  const fileInputRef = useRef();
+  const {
+    sendMessage,
+    setTyping,
+    selectedUser
+  } = useChatStore();
+
+  useEffect(() => {
+    if (!selectedUser) return;
+    return () => setTyping(false); // stop typing when component unmounts
+  },
+    [selectedUser]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file?.type.startsWith("image/")) {
+      toast.error("Please select an image file");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => setImagePreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  const removeImage = () => {
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!text.trim() && !imagePreview) return;
+
+    await sendMessage( {
+      text: text.trim(),
+      image: fileInputRef.current?.files[0] || null,
+    });
+
+    setText("");
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setTyping(false);
+  };
+
+  const handleTyping = (e) => {
+    setText(e.target.value);
+    setTyping(e.target.value.length > 0);
+  };
+  return (
+    <div className="p-4 w-full border-t border-base-300 bg-base-100">
+      {imagePreview && (
+        <div className="mb-3 flex items-center gap-2">
+          <div className="relative">
+            <img
+            src={imagePreview}
+            alt="imagePreview"
+            className="w-20 h-20 object-cover rounded-lg border border-zinc-700"
+            />
+          <button
+            onClick={removeImage}
+            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-orange-300 flex items-center justify-center"
+            type="button"
+            >
+            <X className="size-3" />
+          </button>
+        </div>
+      </div>
+    )}
+    <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+      <div className="flex-1 flex gap-2">
+        <input
+        type="text"
+        className="w-full h-12 px-4 rounded-lg border border-base-300 focus:ring focus:ring-indigo-300"
+        placeholder="Type a message..."
+        value={text}
+        onChange={handleTyping}
+        />
+      <input
+      type="file"
+      accept="image/*"
+      className="hidden"
+      ref={fileInputRef}
+      onChange={handleImageChange}
+      />
+    <button
+      type="button"
+      className={`rounded-full p-2 ${imagePreview ? "text-emerald-500": "text-zinc-400"}`}
+      onClick={() => fileInputRef.current?.click()}
+      >
+      <Image size={22} />
+    </button>
+  </div>
+  <button
+    type="submit"
+    disabled={!text.trim() && !imagePreview}
+    className="p-2 rounded-full bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 text-white"
+    >
+    <Send size={22} />
+  </button>
+</form>
+</div>
+);
+};
+
+export default MessageInput;
+
+ProfilePage.jsx 
+import { useAuthStore } from "../store/useAuthStore";
+import { Camera, User, Mail } from "lucide-react";
+import { useState } from "react";
+
+export const ProfilePage = () => {
+  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+  const [selectedImg, setSelectedImg] = useState(null);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Preview in UI immediately
+    setSelectedImg(URL.createObjectURL(file));
+
+    // Upload with FormData
+    const formData = new FormData();
+    formData.append("profilePic", file);
+
+    await updateProfile(formData);
+  };
+
+  return (
+    <div className="h-screen pt-20">
+      <div className="max-w-2xl mx-auto p-4 py-8">
+        <div className="bg-neutral-300 rounded-xl p-6 space-y-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-semibold">Profile</h1>
+            <p className="mt-2">Your profile information</p>
+          </div>
+
+          {/* Avatar upload section */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative">
+              <img
+                src={selectedImg || authUser?.profilePic || "/avatar.png"}
+                alt="profilePic"
+                className="w-32 h-32 rounded-full object-cover border"
+              />
+              <label
+                htmlFor="avatar-upload"
+                className={`absolute bottom-0 right-0 bg-neutral-400 hover:scale-105 p-2 rounded-full cursor-pointer transition-all duration-200 ${
+                  isUpdatingProfile ? "animate-pulse pointer-events-none" : ""
+                }`}
+              >
+                <Camera className="size-5 text-neutral-200" />
+                <input
+                  type="file"
+                  id="avatar-upload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={isUpdatingProfile}
+                />
+              </label>
+            </div>
+            <p className="text-sm text-zinc-700">
+              {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
+            </p>
+          </div>
+
+          {/* Profile Info */}
+          <div className="space-y-6">
+            <div className="space-y-1.5">
+              <div className="text-sm text-zinc-700 flex items-center gap-2">
+                <User className="size-4" />
+                Full Name
+              </div>
+              <p className="px-4 py-2.5 bg-zinc-200 rounded-lg border">
+                {authUser?.fullName}
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <div className="text-sm text-zinc-700 flex items-center gap-2">
+                <Mail className="size-4" />
+                Email
+              </div>
+              <p className="px-4 py-2.5 bg-zinc-200 rounded-lg border">
+                {authUser?.email}
+              </p>
+            </div>
+          </div>
+
+          {/* Account Info */}
+          <div className="mt-6 bg-neutral-300 rounded-xl p-6">
+            <h2 className="text-lg font-medium mb-4">Account Information</h2>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center justify-between py-2 border-b border-zinc-700">
+                <span>Member Since</span>
+                <span>{authUser?.createdAt?.split("T")[0]}</span>
+              </div>
+              <div className="flex items-center justify-between py-2">
+                <span>Account Status</span>
+                <span className="text-green-500">Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfilePage;
+
+ChatContainer.jsx 
+import {
+  useChatStore
+} from "../store/useChatStore";
+import {
+  useAuthStore
+} from "../store/useAuthStore";
+import {
+  useEffect,
+  useRef
+} from "react";
+import ChatHeader from "./ChatHeader";
+import MessageInput from "./MessageInput";
+import MessageSkeleton from "./skeletons/MessageSkeleton";
+import {
+  formatMessageTime
+} from "../lib/utils";
+
+// Helper to make sure all image URLs are absolute
+const getFullUrl = (url) => {
+  if (!url) return "/avatar.png";
+  if (url.startsWith("http")) return url;
+
+  let BASE_URL = "";
+  const hostname = typeof window !== "undefined" ? window.location.hostname: "";
+
+  if (hostname === "localhost") BASE_URL = "http://localhost:5001";
+  else if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(hostname)) BASE_URL = `http://${hostname}:5001`;
+  else if (hostname.includes("cluster-") && hostname.includes("cloudworkstations.dev"))
+    BASE_URL = `https://${hostname}`;
+  else BASE_URL = `http://${hostname}:5001`;
+
+  return `${BASE_URL}${url}`;
+};
+
+const ChatContainer = () => {
+  const {
+    messages,
+    getMessages,
+    selectedUser,
+    isMessagesLoading,
+    typingUsers,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
+
+  const {
+    authUser
+  } = useAuthStore();
+  const messagesEndRef = useRef(null);
+
+  // Load messages for selected user
+  useEffect(() => {
+    if (selectedUser?._id) getMessages(selectedUser._id);
+    subscribeToMessages();
+    return () => unsubscribeFromMessages();
+  },
+    [selectedUser?._id,
+      getMessages,
+      subscribeToMessages,
+      unsubscribeFromMessages]);
+
+  // Auto-scroll to the latest message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth"
+    });
+  },
+    [messages,
+      typingUsers]);
+
+  if (isMessagesLoading)
+    return (
+    <div className="flex flex-1 flex-col overflow-auto">
+      <ChatHeader />
+      <MessageSkeleton />
+      <MessageInput />
+    </div>
+  );
+
+  return (
+    <div className="flex flex-1 flex-col overflow-hidden bg-base-100">
+      <ChatHeader />
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map((message) => {
+          const isSender = message.senderId === authUser._id;
+          return (
+            <div key={message._id} className={`chat flex ${isSender ? "justify-end": "justify-start"}`}>
+              <div className="flex items-end gap-2">
+                {/* Receiver avatar */}
+                {!isSender && (
+                  <img
+                  src={getFullUrl(selectedUser.profilePic)}
+                  alt="Avatar"
+                  className="w-10 h-10 rounded-full object-cover"
+                  />
+              )}
+
+              {/* Chat bubble */}
+              <div
+                className={`chat-bubble p-3 rounded-lg max-w-[80%] ${
+                isSender ? "bg-indigo-500 text-white": "bg-indigo-100 text-black"
+                } break-words`}
+                >
+                {message.text && <p>
+                  {message.text}
+                </p>
+                }
+
+                {message.image && (
+                  <img
+                  src={getFullUrl(message.image)}
+                  alt="Attachment"
+                  className="mt-2 rounded-md max-w-[200px] object-contain"
+                  />
+              )}
+
+              <time className="text-xs opacity-50 ml-auto block mt-1">
+                {formatMessageTime(message.createdAt)}
+              </time>
+            </div>
+
+            {/* Sender avatar */}
+            {isSender && (
+              <img
+              src={getFullUrl(authUser.profilePic)}
+              alt="Avatar"
+              className="w-8 h-8 rounded-full object-cover"
+              />
+          )}
+        </div>
+        </div>
+      );
+    })}
+
+  {/* Typing indicator */}
+  {selectedUser && typingUsers[selectedUser._id] && (
+    <div className="flex items-center gap-2">
+      <img
+      src={getFullUrl(selectedUser.profilePic)}
+      alt="Avatar"
+      className="w-10 h-10 rounded-full"
+      />
+    <div className="bg-gray-200 p-2 rounded-full text-sm italic">
+      Typing...
+    </div>
+  </div>
+)}
+
+<div ref={messagesEndRef} />
+</div>
+
+<MessageInput />
+</div>
+);
+};
+
+export default ChatContainer;

@@ -1,7 +1,10 @@
+// index.js
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import path from "path";
+import {
+  fileURLToPath
+} from "url";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import {
@@ -12,41 +15,42 @@ import {
   getLocalIP
 } from "./lib/utils.js";
 import {
-  cors_setup
-} from "./configs/configs.js";
+  config
+} from "./config/config.js";
 
-dotenv.config();
-const PORT = process.env.PORT || 5001;
-const __dirname = path.resolve();
+// --- Resolve __dirname in ES Modules ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// --- CORS ---
-app.use(cors_setup);
-
+// --- Body parsers ---
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
 
-// --- ROUTES ---
+// --- API ROUTES ---
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/uploads", express.static("public/uploads"));
 
-// --- Serve Frontend ---
-if (process.env.NODE_ENV === "production") {
-  const distPath = path.join(__dirname, "../frontend/dist");
+// --- Serve uploads ---
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
+// --- Serve frontend (React SPA) in production ---
+if (config.nodeEnv === "production") {
+  const distPath = path.join(__dirname, "../../frontend/dist");
+
+  // Serve static assets first
   app.use(express.static(distPath));
 
-  app.get(/.*/, (req, res) => {
+  // Catch-all route for SPA
+  app.get(/^\/.*$/, (req, res) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
 }
 
-
-
 // --- START SERVER ---
-server.listen(PORT, "0.0.0.0", () => {
+server.listen(config.port, "0.0.0.0", () => {
   const ip = getLocalIP();
-  console.log(`✅ Backend running locally: http://${ip}:${PORT}`);
+  console.log(`✅ Backend running locally: http://${ip}:${config.port}`);
 });

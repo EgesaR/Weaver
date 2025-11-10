@@ -1,58 +1,66 @@
+// socket.js
 import express from "express";
 import http from "http";
 import {
   Server
 } from "socket.io";
+import cors from "cors";
+import jwt from "jsonwebtoken";
+import {
+  config
+} from "../config/config.js";
 
 const app = express();
 const server = http.createServer(app);
 
-// Map userId → socketId
-const userSocketMap = {};
+// --- CORS Middleware ---
+app.use(cors(config.corsOptions));
+app.options(/^\/.*$/, cors(config.corsOptions)); // handle preflight
 
+// --- User Socket Map ---
+const userSocketMap = {};
 export const getReceiverSocketId = (userId) => userSocketMap[userId];
 
-// --- SOCKET.IO CONFIG ---
+// --- Socket.IO Setup ---
 const io = new Server(server, {
-  cors: {
-    origin: (origin, callback) => {
-      if (
-        !origin ||
-        origin === "http://localhost:5173" ||
-        /^http:\/\/192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin) ||
-        /^https:\/\/\d+-firebase-weavergit-\d+\.cluster-[a-z0-9]+\.cloudworkstations\.dev$/.test(origin)
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  },
-  transports: ["polling",
-    "websocket"],
-  // ✅ fallback for handshake reliability
+  cors: config.corsOptions,
+  transports: ["websocket", "polling"], // Prefer WebSocket
 });
 
-// --- SOCKET EVENTS ---
+// --- Authentication Middleware for Socket.IO ---
+io.use((socket, next) => {
+  const cookieHeader = socket.handshake.headers.cookie;
+  const token = cookieHeader
+  ?.split("; ")
+  .find((c) => c.startsWith("jwt="))
+  ?.split("=")[1];
+
+  if (!token) return next(new Error("Unauthorized"));
+
+  try {
+    const decoded = jwt.verify(token, config.jwtSecret);
+    socket.userId = decoded.userId;
+    next();
+  } catch (err) {
+    next(new Error("Invalid token"));
+  }
+});
+
+// --- Socket Events ---
 io.on("connection", (socket) => {
-  console.log("✅ User connected:", socket.id);
+  console.log("✅ User connected:", socket.id, "from origin:", socket.handshake.headers.origin);
 
-  const userId = socket.handshake.query.userId;
-
+  const userId = socket.userId;
   if (userId) {
     userSocketMap[userId] = socket.id;
     console.log(`User ${userId} added with socket ID ${socket.id}`);
   }
 
-  // Send updated list of online users (as numbers)
   io.emit("getOnlineUsers", Object.keys(userSocketMap).map(Number));
 
   socket.on("disconnect", () => {
     console.log("❌ User disconnected:", socket.id);
-    if (userId) {
-      delete userSocketMap[userId];
-    }
+    if (userId) delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap).map(Number));
   });
 });
