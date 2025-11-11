@@ -13,7 +13,7 @@
     "fullName": "Karen",
     "email": "karen@gmail.com",
     "password": "$2b$12$kqS2.cajyQLNxus8vKofjeNrMX1e1hTMsGOha5Aoj40LAsDf7kA4q",
-    "profilePic": "http://0.0.0.0:5001/uploads/1761038478327-download.jfif",
+    "profilePic": "1761038478327-download.jfif",
     "createdAt": "2025-10-09T12:00:39.089Z",
     "updatedAt": "2025-10-09T12:00:39.089Z"
   },
@@ -22,7 +22,7 @@
     "fullName": "henry",
     "email": "henry@gmail.com",
     "password": "$2b$12$lBeM12bGYgE6sPFpZAhLIuqbcVL0AiHQaIAYn31cw72nnqTh7KCn6",
-    "profilePic": "http://localhost:5001/uploads/1762761452917-avatar-1.png",
+    "profilePic": "1762761452917-avatar-1.png",
     "createdAt": "2025-10-18T14:59:00.769Z",
     "updatedAt": "2025-10-18T14:59:00.769Z"
   },
@@ -36,66 +36,66 @@
     "updatedAt": "2025-10-21T09:23:16.171Z"
   },
   {
-    "email": "emma.thompson@example.com",
+    "_id": 5,
     "fullName": "Emma Thompson",
+    "email": "emma.thompson@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/emma_thompson.jpg",
+    "profilePic": "emma_thompson.jpg",
     "createdAt": "2025-11-03T09:26:35.882Z",
-    "updatedAt": "2025-11-03T09:26:35.884Z",
-    "_id": 5
+    "updatedAt": "2025-11-03T09:26:35.884Z"
   },
   {
-    "email": "olivia.miller@example.com",
+    "_id": 6,
     "fullName": "Olivia Miller",
+    "email": "olivia.miller@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/olivia_miller.jpg",
+    "profilePic": "olivia_miller.jpg",
     "createdAt": "2025-11-03T09:26:35.888Z",
-    "updatedAt": "2025-11-03T09:26:35.888Z",
-    "_id": 6
+    "updatedAt": "2025-11-03T09:26:35.888Z"
   },
   {
-    "email": "sophia.davis@example.com",
+    "_id": 7,
     "fullName": "Sophia Davis",
+    "email": "sophia.davis@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/sophia_davis.jpg",
+    "profilePic": "sophia_davis.jpg",
     "createdAt": "2025-11-03T09:26:35.889Z",
-    "updatedAt": "2025-11-03T09:26:35.889Z",
-    "_id": 7
+    "updatedAt": "2025-11-03T09:26:35.889Z"
   },
   {
-    "email": "william.clark@example.com",
+    "_id": 8,
     "fullName": "William Clark",
+    "email": "william.clark@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/william_clark.jpg",
+    "profilePic": "william_clark.jpg",
     "createdAt": "2025-11-03T09:26:35.889Z",
-    "updatedAt": "2025-11-03T09:26:35.889Z",
-    "_id": 8
+    "updatedAt": "2025-11-03T09:26:35.889Z"
   },
   {
-    "email": "benjamin.taylon@example.com",
+    "_id": 9,
     "fullName": "Benjamin Taylon",
+    "email": "benjamin.taylon@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/benjamin_taylon.jpg",
+    "profilePic": "benjamin_taylon.jpg",
     "createdAt": "2025-11-03T09:26:35.889Z",
-    "updatedAt": "2025-11-03T09:26:35.889Z",
-    "_id": 9
+    "updatedAt": "2025-11-03T09:26:35.889Z"
   },
   {
-    "email": "lucas.moore@example.com",
+    "_id": 10,
     "fullName": "Lucas Moore",
+    "email": "lucas.moore@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/lucas_moore.jpg",
+    "profilePic": "lucas_moore.jpg",
     "createdAt": "2025-11-03T09:26:35.890Z",
-    "updatedAt": "2025-11-03T09:26:35.890Z",
-    "_id": 10
+    "updatedAt": "2025-11-03T09:26:35.890Z"
   },
   {
-    "email": "henry.jackson@example.com",
+    "_id": 11,
     "fullName": "Henry Jackson",
+    "email": "henry.jackson@example.com",
     "password": "1234567890",
-    "profilePic": "http://localhost:5001/uploads/henry_jackson.jpg",
+    "profilePic": "henry_jackson.jpg",
     "createdAt": "2025-11-03T09:26:35.890Z",
-    "updatedAt": "2025-11-03T09:26:35.890Z",
-    "_id": 11
+    "updatedAt": "2025-11-03T09:26:35.890Z"
   }
 ]

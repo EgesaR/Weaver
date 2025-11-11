@@ -44,9 +44,12 @@ export const useChatStore = create((set, get) => ({
     });
     try {
       const res = await axiosInstance.get(`/messages/${userId}`);
-      set({
-        messages: Array.isArray(res.data) ? res.data: []
-      });
+      const { prependUrl } = useAuthStore.getState();
+      const mapped = Array.isArray(res.data) ? res.data.map((m) => ({
+        ...m,
+        image: prependUrl(m.image),
+      })) : [];
+      set({ messages: mapped });
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to fetch messages");
       set({
@@ -60,16 +63,18 @@ export const useChatStore = create((set, get) => ({
   },
 
   sendMessage: async ({
-    text, image
+    receiverId, text, image
   }) => {
     const {
       selectedUser, messages
     } = get();
     try {
       const formData = new FormData();
-      formData.append("text", text);
+      formData.append("receiverId", receiverId);
+      if (text) formData.append("text", text);
       if (image) formData.append("image", image);
 
+      const { prependUrl } = useAuthStore.getState();
       const res = await axiosInstance.post(
         `/messages/send/${selectedUser._id}`,
         formData,
@@ -81,9 +86,9 @@ export const useChatStore = create((set, get) => ({
         }
       );
 
-      set({
-        messages: [...messages, res.data]
-      });
+      const msg = res.data
+      msg.image = prependUrl(msg.image)
+      set((state) => ({ messages: [...state.messages, msg] }));
 
       // Emit to socket for live updates
       const socket = useAuthStore.getState().socket;

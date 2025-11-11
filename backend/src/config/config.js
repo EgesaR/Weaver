@@ -1,4 +1,3 @@
-// config.js
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
@@ -7,45 +6,39 @@ dotenv.config();
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
-  /^http:\/\/192\.168\.43\.\d{1,3}(:\d+)?$/, // hotspot IPs
-  /^http:\/\/10\.22\.\d{1,3}\.\d{1,3}(:\d+)?$/, // local wifi IPs
+  /^http:\/\/192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$/,
+  /^http:\/\/10\.22\.\d{1,3}\.\d{1,3}(:\d+)?$/,
   /^https:\/\/\d+-firebase-weavergit-\d+\.cluster-[a-z0-9]+\.cloudworkstations\.dev$/,
-  "http://0.0.0.0:5001",
-  "http://localhost:5001",
-  "http://127.0.0.1:5001",
-  "http://192.168.43.58:5173", // Added for explicit testing
 ];
 
 const config = {
   port: process.env.PORT || 5001,
   nodeEnv: process.env.NODE_ENV || "development",
-  jwtSecret: process.env.JWT_SECRET,
+  jwtSecret: process.env.JWT_SECRET || "dev_fallback_secret_key",
+
+  // Backend host for production (used for images & sockets)
+  backendHost:
+    process.env.BACKEND_HOST ||
+    "5001-firebase-weavergit-1762766269357.cluster-64pjnskmlbaxowh5lzq6i7v4ra.cloudworkstations.dev",
+
   frontendOrigins: ALLOWED_ORIGINS,
+
   corsOptions: {
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow mobile apps / same origin
+      if (!origin) return callback(null, true);
 
       const allowed = ALLOWED_ORIGINS.some((pattern) =>
-        pattern instanceof RegExp ? pattern.test(origin): pattern === origin
+        pattern instanceof RegExp ? pattern.test(origin) : pattern === origin
       );
 
-      if (allowed) {
-        console.log("✅ Allowed origin:", origin);
-        return callback(null, true);
-      }
+      if (allowed) return callback(null, true);
 
-      console.log("❌ Blocked by CORS:", origin);
       callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
-    methods: ["GET",
-      "POST",
-      "PUT",
-      "DELETE",
-      "OPTIONS"],
-    allowedHeaders: ["Content-Type",
-      "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
 };
 
-export default config
+export default config;

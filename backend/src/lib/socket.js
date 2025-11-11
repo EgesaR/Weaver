@@ -1,14 +1,10 @@
 // socket.js
 import express from "express";
 import http from "http";
-import {
-  Server
-} from "socket.io";
+import { Server } from "socket.io";
 import cors from "cors";
 import jwt from "jsonwebtoken";
-import {
-  config
-} from "../config/config.js";
+import config from "../config/config.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -31,9 +27,9 @@ const io = new Server(server, {
 io.use((socket, next) => {
   const cookieHeader = socket.handshake.headers.cookie;
   const token = cookieHeader
-  ?.split("; ")
-  .find((c) => c.startsWith("jwt="))
-  ?.split("=")[1];
+    ?.split("; ")
+    .find((c) => c.startsWith("jwt="))
+    ?.split("=")[1];
 
   if (!token) return next(new Error("Unauthorized"));
 
@@ -48,7 +44,12 @@ io.use((socket, next) => {
 
 // --- Socket Events ---
 io.on("connection", (socket) => {
-  console.log("✅ User connected:", socket.id, "from origin:", socket.handshake.headers.origin);
+  console.log(
+    "✅ User connected:",
+    socket.id,
+    "from origin:",
+    socket.handshake.headers.origin
+  );
 
   const userId = socket.userId;
   if (userId) {
@@ -65,6 +66,4 @@ io.on("connection", (socket) => {
   });
 });
 
-export {
-  app, server, io
-};
+export { app, server, io };

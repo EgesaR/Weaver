@@ -11,12 +11,9 @@ import {
   app,
   server
 } from "./lib/socket.js";
-import {
-  getLocalIP
-} from "./lib/utils.js";
-import {
-  config
-} from "./config/config.js";
+import { getBaseUrl } from "./utils/getBaseUrl.js";
+import config from "./config/config.js";
+//import config from "./config/config.js";
 
 // --- Resolve __dirname in ES Modules ---
 const __filename = fileURLToPath(import.meta.url);
@@ -51,6 +48,6 @@ if (config.nodeEnv === "production") {
 
 // --- START SERVER ---
 server.listen(config.port, "0.0.0.0", () => {
-  const ip = getLocalIP();
+  const ip = getBaseUrl();
   console.log(`✅ Backend running locally: http://${ip}:${config.port}`);
 });
