@@ -12,8 +12,10 @@ export function getDynamicBackendUrl() {
     return `${protocol}//${hostname}:${port}`;
 
   // Cloud Workstations
-  if (hostname.includes("cloudworkstations.dev"))
-    return `${protocol}//${hostname}:${port}`;
+  if (hostname.includes("cloudworkstations.dev")) {
+    const newHostname = hostname.replace(/^\d+-/, `${port}-`);
+    return `${protocol}//${newHostname}`;
+  }
 
   // idx.google / vercel / other production host
   // Assume backend is at same host + port 5001 OR use env var

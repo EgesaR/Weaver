@@ -1,4 +1,3 @@
-// backend/utils/getBaseUrl.js
 import os from "os";
 import config from "../config/config.js";
 

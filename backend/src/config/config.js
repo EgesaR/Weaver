@@ -6,6 +6,7 @@ dotenv.config();
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
+  "https://5173-firebase-weavergit-1762766269357.cluster-64pjnskmlbaxowh5lzq6i7v4ra.cloudworkstations.dev",
   /^http:\/\/192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$/,
   /^http:\/\/10\.22\.\d{1,3}\.\d{1,3}(:\d+)?$/,
   /^https:\/\/\d+-firebase-weavergit-\d+\.cluster-[a-z0-9]+\.cloudworkstations\.dev$/,
