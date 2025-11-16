@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    "allowJs": true,
+
+    /* 🔥 REQUIRED for React JSX */
+    "jsx": "react-jsx",
+
+    /* Nice-to-have for React projects */
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "isolatedModules": true
+  },
+  "include": ["src"]
+}

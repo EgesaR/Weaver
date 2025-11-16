@@ -37,7 +37,6 @@ export const LoginPage = () => {
     if (!formData.email.trim()) return toast.error("Email is required");
     if (!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Email is invalid");
     if (!formData.password) return toast.error("Password is required");
-    console.log(formData.password, formData.password.length)
     if (formData.password.length < 8) return toast.error("Password must be at least 8 characters");
 
     return true

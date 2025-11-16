@@ -63,11 +63,12 @@ export const useChatStore = create((set, get) => ({
   },
 
   sendMessage: async ({
-    receiverId, text, image
+    text, image
   }) => {
     const {
       selectedUser, messages
-    } = get();
+    } = get(); 
+    const receiverId=selectedUser._id
     try {
       const formData = new FormData();
       formData.append("receiverId", receiverId);

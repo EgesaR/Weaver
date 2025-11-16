@@ -21,13 +21,12 @@ const HomePage = () => {
 
   return (
     <div className="h-screen bg-neutral-200">
-      <div className="flex items-center justify-center pt-[68px] px-0.5">
-        <div className="bg-base-100 rounded-lg flex w-full max-w-6xl overflow-hidden h-[calc(100vh-4.3rem)]">
+      <div className="flex items-center justify-center pt-[68px] px-4.5">
+        <div className="bg-base-100 rounded-lg flex w-full max-w-7xl overflow-hidden h-[calc(100vh-4.3rem)] sm:h-[calc(100vh-70px)]">
           <Sidebar />
-          {!selectedUser ? <NoChatSelected />: <ChatContainer />}
+          {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
         </div>
       </div>
-
     </div>
   );
 };
