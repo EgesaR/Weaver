@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import Quill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import Quill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 // Use the current host with backend port 5001
 const API_BASE_URL = `http://${window.location.hostname}:5002`;

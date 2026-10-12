@@ -109,7 +109,8 @@ export const useAuthStore = create((set, get) => ({
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout")
-      set({ authUser: null })
+      get().disconnectSocket()
+      set({ authUser: null, onlineUsers: [] })
       toast.success("Logged out successfully")
     } catch (error) {
       toast.error(error.response.data.message)
@@ -137,7 +138,9 @@ export const useAuthStore = create((set, get) => ({
 
     newSocket.on("error", (err) => console.error("❌ Socket error:", err));
 
-    newSocket.on("getOnlineUsers", (userIds) => set({ onlineUsers: userIds }));
+    newSocket.on("getOnlineUsers", (userIds) =>
+      set({ onlineUsers: userIds.map(String) })
+    );
 
     set({ socket: newSocket });
   },

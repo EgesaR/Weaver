@@ -91,30 +91,28 @@ export const useChatStore = create((set, get) => ({
       msg.image = prependUrl(msg.image)
       set((state) => ({ messages: [...state.messages, msg] }));
 
-      // Emit to socket for live updates
-      const socket = useAuthStore.getState().socket;
-      if (socket && socket.connected) {
-        socket.emit("send-message", res.data);
-      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to send message");
     }
   },
 
   subscribeToMessages: () => {
-    const {
-      selectedUser
-    } = get();
+    const { selectedUser } = get();
+    const { authUser } = useAuthStore.getState();
     const socket = useAuthStore.getState().socket;
-    if (!selectedUser || !socket) return;
+    if (!selectedUser || !authUser || !socket) return;
 
     socket.on("newMessage", (newMessage) => {
-      const isMessageFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (isMessageFromSelectedUser) {
-        set({
-          messages: [...get().messages, newMessage]
-        });
-      }
+      const isSelectedConversation =
+        (String(newMessage.senderId) === String(selectedUser._id) &&
+          String(newMessage.receiverId) === String(authUser._id)) ||
+        (String(newMessage.senderId) === String(authUser._id) &&
+          String(newMessage.receiverId) === String(selectedUser._id));
+      if (!isSelectedConversation) return;
+
+      set((state) => state.messages.some((message) =>
+        String(message._id) === String(newMessage._id)
+      ) ? state : { messages: [...state.messages, newMessage] });
     });
   },
 

@@ -14,8 +14,14 @@ app.use(cors(config.corsOptions));
 app.options(/^\/.*$/, cors(config.corsOptions)); // handle preflight
 
 // --- User Socket Map ---
-const userSocketMap = {};
-export const getReceiverSocketId = (userId) => userSocketMap[userId];
+const userSocketMap = new Map();
+export const getReceiverSocketId = (userId) =>
+  userSocketMap.get(String(userId))?.values().next().value;
+export const getReceiverSocketIds = (userId) =>
+  [...(userSocketMap.get(String(userId)) || [])];
+
+const getOnlineUserIds = () =>
+  [...userSocketMap.keys()].map((userId) => Number(userId));
 
 // --- Socket.IO Setup ---
 const io = new Server(server, {
@@ -53,16 +59,25 @@ io.on("connection", (socket) => {
 
   const userId = socket.userId;
   if (userId) {
-    userSocketMap[userId] = socket.id;
+    const userKey = String(userId);
+    const sockets = userSocketMap.get(userKey) || new Set();
+    sockets.add(socket.id);
+    userSocketMap.set(userKey, sockets);
+    socket.join(`user:${userKey}`);
     console.log(`User ${userId} added with socket ID ${socket.id}`);
   }
 
-  io.emit("getOnlineUsers", Object.keys(userSocketMap).map(Number));
+  io.emit("getOnlineUsers", getOnlineUserIds());
 
   socket.on("disconnect", () => {
     console.log("❌ User disconnected:", socket.id);
-    if (userId) delete userSocketMap[userId];
-    io.emit("getOnlineUsers", Object.keys(userSocketMap).map(Number));
+    if (userId) {
+      const userKey = String(userId);
+      const sockets = userSocketMap.get(userKey);
+      sockets?.delete(socket.id);
+      if (sockets?.size === 0) userSocketMap.delete(userKey);
+    }
+    io.emit("getOnlineUsers", getOnlineUserIds());
   });
 });
 

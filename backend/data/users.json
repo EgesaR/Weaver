@@ -97,5 +97,23 @@
     "profilePic": "henry_jackson.jpg",
     "createdAt": "2025-11-03T09:26:35.890Z",
     "updatedAt": "2025-11-03T09:26:35.890Z"
+  },
+  {
+    "_id": 12,
+    "fullName": "john doe",
+    "email": "johndoe@gmail.com",
+    "password": "$2b$12$d0iAMJslKdKZnjd9xB1rTekz8KBoDbn5L6Qo8jk1OPVhPUxvz/21u",
+    "profilePic": null,
+    "createdAt": "2026-10-12T23:42:58.731Z",
+    "updatedAt": "2026-10-12T23:42:58.731Z"
+  },
+  {
+    "_id": 13,
+    "fullName": "jake",
+    "email": "jake@gmail.com",
+    "password": "$2b$12$CWuTQt0xyOs/gc/mF0FEv.8hE5nOUgaHq5inZRrHPfTlyRRfGCit2",
+    "profilePic": null,
+    "createdAt": "2026-10-12T23:48:31.580Z",
+    "updatedAt": "2026-10-12T23:48:31.580Z"
   }
 ]

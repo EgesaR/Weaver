@@ -68,6 +68,7 @@ const MessageInput = () => {
   const containerRef = useRef();
 
   const { sendMessage, setTyping, selectedUser } = useChatStore();
+  const hasMessage = Boolean(text.trim() || imagePreview);
 
   // Typing effect cleanup
   useEffect(() => {
@@ -228,12 +229,12 @@ const MessageInput = () => {
               size="icon"
               type="submit"
               disabled={!text.trim() && !imagePreview}
-              className={`p-2 rounded-full bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 flex items-center justify-center text-white transition-all duration-300 ease-in-out ${
-                text.trim() || imagePreview ? "w-24" : ""
+              className={`p-2 rounded-full bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 flex shrink-0 items-center justify-center gap-2 text-white transition-all duration-300 ease-in-out ${
+                hasMessage ? "w-24" : "w-10"
               }`}
             >
               <Send size={22} />
-              {text.trim() || imagePreview && <label>Send</label>}
+              {hasMessage && <span>Send</span>}
             </Button>
           </div>
         </div>
