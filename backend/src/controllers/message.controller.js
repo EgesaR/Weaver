@@ -1,6 +1,7 @@
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
 import { getBaseUrl } from "../utils/getBaseUrl.js";
+import { io } from "../lib/socket.js";
 
 // Helper to get full image URL
 const getFullImage = (imagePath) => {
@@ -47,6 +48,10 @@ export const sendMessage = async (req, res) => {
       text,
       image: imageUrl,
     });
+
+    io.to(`user:${senderId}`)
+      .to(`user:${Number(receiverId)}`)
+      .emit("newMessage", newMessage);
 
     res.status(201).json(newMessage);
   } catch (err) {

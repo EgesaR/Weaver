@@ -5,6 +5,8 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { formatMessageTime } from "../lib/utils";
+import { MessageCircle } from "lucide-react";
+import EnhancedImage from "./EnhancedImage";
 
 // Helper to make sure all image URLs are absolute
 const getFullUrl = (url) => {
@@ -41,14 +43,15 @@ const ChatContainer = () => {
 
   const { authUser } = useAuthStore();
   const messagesEndRef = useRef(null);
+  const selectedUserId = selectedUser?._id;
 
   // Load messages for selected user
   useEffect(() => {
-    if (selectedUser?._id) getMessages(selectedUser._id);
+    if (selectedUserId) getMessages(selectedUserId);
     subscribeToMessages();
     return () => unsubscribeFromMessages();
   }, [
-    selectedUser?._id,
+    selectedUserId,
     getMessages,
     subscribeToMessages,
     unsubscribeFromMessages,
@@ -71,87 +74,75 @@ const ChatContainer = () => {
     );
 
   return (
-    <div className="flex flex-1 flex-col overflow-hidden bg-base-100">
+    <div className="flex min-w-0 flex-1 flex-col overflow-hidden bg-muted/20">
       <ChatHeader />
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => {
-          const isSender = message.senderId === authUser._id;
-          return (
-            <div
-              key={message._id}
-              className={`flex gap-2 mb-4 ${
-                isSender ? "justify-end" : "justify-start"
-              }`}
-            >
-              <div className="flex gap-2">
-                {/* Receiver avatar */}
-                {!isSender && (
-                  <img
-                    src={getFullUrl(selectedUser.profilePic)}
-                    alt="Avatar"
-                    className="size-8 rounded-full object-cover"
-                  />
-                )}
-                <div className="grid">
-                  <h5
-                    className={`text-gray-900 text-sm font-semibold leading-snug pb-1 ${
-                      isSender ? "ml-auto" : ""
-                    }`}
-                  >
-                    {isSender ? authUser.fullName : selectedUser.fullName}
-                  </h5>
-                  <div className="w-max grid">
-                    {/* Chat bubble */}
-                    <div
-                      className={`px-3.5 py-2 rounded-3xl justify-start items-center gap-1 inline-flex flex-col text-sm font-normal leading-snug ${
-                        isSender
-                          ? "bg-indigo-500 text-white rounded-tr-none"
-                          : "bg-indigo-100 text-black rounded-tl-none"
+      <div className="flex-1 space-y-5 overflow-y-auto bg-gradient-to-b from-muted/20 to-background p-4 sm:p-6">
+      {messages.length === 0 && (
+        <div className="flex h-full min-h-64 flex-col items-center justify-center text-center">
+          <span className="mb-4 flex size-14 items-center justify-center rounded-2xl border bg-card shadow-sm">
+            <MessageCircle className="size-6 text-primary" />
+          </span>
+          <p className="font-medium">Start the conversation</p>
+          <p className="mt-1 max-w-xs text-sm text-muted-foreground">
+            Send a message to {selectedUser.fullName} to get things going.
+          </p>
+        </div>
+      )}
+      {messages.map((message) => {
+        const isSender =
+          String(message.senderId) === String(authUser?._id);
+        return (
+          <div
+            key={message._id}
+            className={`flex ${isSender ? "justify-end" : "justify-start"}`}
+          >
+            <div className={`flex max-w-[85%] items-end gap-2 sm:max-w-[72%] ${isSender ? "flex-row-reverse" : ""}`}>
+              <img
+                src={getFullUrl(isSender ? authUser?.profilePic : selectedUser.profilePic)}
+                alt=""
+                className="mb-5 size-7 shrink-0 rounded-full object-cover ring-1 ring-border"
+              />
+              <div className={`min-w-0 ${isSender ? "items-end" : "items-start"} flex flex-col`}>
+                <h5 className="mb-1 px-1 text-xs font-medium text-muted-foreground">
+                  {isSender ? "You" : selectedUser.fullName}
+                </h5>
+                <div
+                  className={`max-w-full overflow-hidden rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm ${
+                    isSender
+                      ? "rounded-br-md bg-primary text-primary-foreground"
+                      : "rounded-bl-md border bg-card text-card-foreground"
+                  }`}
+                >
+                  {message.text && (
+                    <p className="whitespace-pre-wrap break-words">{message.text}</p>
+                  )}
+                  {message.image && (
+                    <EnhancedImage
+                      src={getFullUrl(message.image)}
+                      alt="Message attachment"
+                      className={`max-h-72 max-w-full rounded-lg object-contain ${
+                        message.text ? "mt-2" : ""
                       }`}
-                    >
-                      {message.text && <p>{message.text}</p>}
-
-                      {message.image && (
-                        <img
-                          src={getFullUrl(message.image)}
-                          alt="Attachment"
-                          className="mt-2 mb-2 rounded-md max-w-[200px] object-contain"
-                        />
-                      )}
-                    </div>
-                    {/* Chat Time Display */}
-                    <div
-                      className={`items-center inline-flex mb-2.5 ${
-                        isSender ? "mr-auto" : "justify-end"
-                      }`}
-                    >
-                      <time className="text-gray-500 text-xs font-normal leading-4 py-1 opacity-50 ml-auto block">
-                        {formatMessageTime(message.createdAt)}
-                      </time>
-                    </div>
-                  </div>
+                    />
+                  )}
                 </div>
-                {/* Sender avatar */}
-                {isSender && (
-                  <img
-                    src={getFullUrl(authUser.profilePic)}
-                    alt="Avatar"
-                    className="size-8 rounded-full object-cover"
-                  />
-                )}
+                <time className="mt-1 px-1 text-[11px] text-muted-foreground">
+                  {formatMessageTime(message.createdAt)}
+                </time>
               </div>
             </div>
+          </div>
           );
         })}
         {/* Typing indicator */}
         {selectedUser && typingUsers[selectedUser._id] && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <img
               src={getFullUrl(selectedUser.profilePic)}
               alt="Avatar"
-              className="w-10 h-10 rounded-full"
+              className="size-7 rounded-full object-cover"
             />
-            <div className="bg-gray-200 p-2 rounded-full text-sm italic">
+            <div className="rounded-2xl border bg-card px-3 py-2 italic shadow-sm">
               Typing...
             </div>
           </div>
@@ -161,7 +152,7 @@ const ChatContainer = () => {
       </div>
 
       {/* Message Input */}
-      <MessageInput/>
+      <MessageInput />
     </div>
   );
 };
