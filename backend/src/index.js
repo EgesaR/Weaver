@@ -31,7 +31,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 // --- Serve uploads ---
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
 
 // --- Serve frontend (React SPA) in production ---
 if (config.nodeEnv === "production") {

@@ -4,30 +4,17 @@ import {
 import Sidebar from "../components/Sidebar";
 import NoChatSelected from "../components/NoChatSelected";
 import ChatContainer from "../components/ChatContainer";
-import {
-  useState
-} from "react";
-import {
-  Menu,
-  X
-} from "lucide-react";
 
 const HomePage = () => {
-  const {
-    selectedUser
-  } = useChatStore();
-  const [sidebarOpen,
-    setSidebarOpen] = useState(false);
+  const { selectedUser } = useChatStore();
 
   return (
-    <div className="h-screen bg-neutral-200">
-      <div className="flex items-center justify-center pt-[68px] px-4.5">
-        <div className="bg-base-100 rounded-lg flex w-full max-w-7xl overflow-hidden h-[calc(100vh-4.3rem)] sm:h-[calc(100vh-70px)]">
+    <main className="min-h-screen bg-gradient-to-br from-muted/60 via-background to-muted/40 px-3 pb-4 pt-20 sm:px-6 sm:pb-6">
+      <div className="mx-auto flex h-[calc(100vh-6.25rem)] min-h-[32rem] max-w-7xl overflow-hidden rounded-2xl border bg-card text-card-foreground shadow-xl shadow-black/5">
           <Sidebar />
           {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
-        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
